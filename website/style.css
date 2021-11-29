@@ -49,6 +49,15 @@ height: 100%;
 
 }
 
+.danger{
+    color: rgb(207, 0, 0);
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+.displayNone{
+    display: none;
+}
+
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label{
     display:block;

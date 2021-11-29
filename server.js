@@ -2,6 +2,7 @@
 let projectData = {};
 const apiKey = '&appid=e31548070754746e47db244d4fd8fd43';
 const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
+const units = 'imperial';
 
 
 // Require Express to run server and routes
@@ -33,7 +34,7 @@ app.get('/getData', (req, res)=>{
 
 app.post('/postData', async (req,res)=>{
     let d = new Date();
-    let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+    let newDate = (d.getMonth()+1) + '.' + d.getDate() + '.' + d.getFullYear();
     let temp = await getWeatherData(req.body.zipCode);
     projectData = {
         'zipCode' : req.body.zipCode,
@@ -41,7 +42,7 @@ app.post('/postData', async (req,res)=>{
         'date' : newDate,
         'temp' : temp
     };
-    res.send(projectData);
+    res.send("success");
 });
 
 
@@ -54,7 +55,7 @@ app.listen(port,()=>{
 
 // functions web API
 let getWeatherData = async (zip )=>{
-    let urlR = url + zip + apiKey;
+    let urlR = url + zip + apiKey+'&units='+units;
     let request = await fetch(urlR,{
         headers: {
             'Content-Type': 'application/json'

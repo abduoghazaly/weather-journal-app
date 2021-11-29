@@ -1,6 +1,5 @@
 /* Global Variables */
 
-
 // Create a new date instance dynamically with JS
 // let d = new Date();
 // let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
@@ -10,9 +9,10 @@ let getProjectData = async () => {
     let request = await fetch('/getData');
     try {
         let response = await request.json();
-        updateUI(response);
+        return response;
     } catch (err) {
         console.log("Error: " + err);
+        throw(err);
     }
 };
 
@@ -25,12 +25,13 @@ let postData = async (body) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
-    }).then(response => response.json());
+    }).then(response => response.text());
     try {
         let response = await request;
-        updateUI(response);
+        return true;
     } catch (err) {
         console.log("Error: " + err);
+        throw(err);
     }
 };
 
@@ -40,20 +41,26 @@ let inputData = () => {
     let feelings = document.getElementById('feelings').value;
     document.getElementById('zip').value = '';
     document.getElementById('feelings').value = '';
-    return { 'zipCode':zipCode, 'feelings':feelings };
+    return { 'zipCode': zipCode, 'feelings': feelings };
 };
 
 // update UI 
-let updateUI = (data)=>{
+let updateUI = (data) => {
     document.getElementById('date').innerText = data.date;
-    document.getElementById('temp').innerText = data.temp;
+    document.getElementById('temp').innerText = data.temp + 'F';
     document.getElementById('content').innerText = data.feelings;
-}; 
+};
 
 // listner function
 let sendData = () => {
-    let body = inputData();
-    postData(body);
+    if (document.getElementById('zip').value === '') {
+        document.getElementById('error').classList.remove('displayNone');
+    } else {
+        document.getElementById('error').classList.add('displayNone');
+        let body = inputData();
+        // this is a way to chain the methods <===== its so annouing in the first but then i found it's so good if you make the functions return data or error
+        postData(body).then(ress => getProjectData()).then(data =>  updateUI(data)).catch(error => console.log(error));
+    }
 };
 
 // listner 
