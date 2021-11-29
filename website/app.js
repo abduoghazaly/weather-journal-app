@@ -47,7 +47,11 @@ let inputData = () => {
 // update UI 
 let updateUI = (data) => {
     document.getElementById('date').innerText = data.date;
-    document.getElementById('temp').innerText = data.temp + 'F';
+    if(data.temp === undefined){
+        document.getElementById('temp').innerText = 'Error web API!!!';
+    }else{
+        document.getElementById('temp').innerText = data.temp + 'F';
+    }
     document.getElementById('content').innerText = data.feelings;
 };
 
