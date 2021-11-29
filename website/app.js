@@ -12,7 +12,7 @@ let getProjectData = async () => {
         return response;
     } catch (err) {
         console.log("Error: " + err);
-        throw(err);
+        throw err;
     }
 };
 
@@ -31,7 +31,7 @@ let postData = async (body) => {
         return true;
     } catch (err) {
         console.log("Error: " + err);
-        throw(err);
+        throw err;
     }
 };
 
