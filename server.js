@@ -35,7 +35,7 @@ app.get('/getData', (req, res)=>{
 app.post('/postData', async (req,res)=>{
     let d = new Date();
     let newDate = (d.getMonth()+1) + '.' + d.getDate() + '.' + d.getFullYear();
-    let temp = await getWeatherData(req.body.zipCode);
+    let temp = await getWeatherData(req.body.zipCode).then(result => result).catch(err => console.log('there is an error at request temp\n'+err));
     projectData = {
         'zipCode' : req.body.zipCode,
         'feelings': req.body.feelings,
@@ -54,7 +54,7 @@ app.listen(port,()=>{
 
 
 // functions web API
-let getWeatherData = async (zip )=>{
+let getWeatherData = async (zip)=>{
     let urlR = url + zip + apiKey+'&units='+units;
     let request = await fetch(urlR,{
         headers: {

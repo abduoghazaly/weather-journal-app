@@ -15,7 +15,7 @@ let getProjectData = async () => {
         
     }
 };
- 
+
 
 // post Data 
 let postData = async (body) => {
@@ -64,7 +64,7 @@ let sendData = () => {
         document.getElementById('error').classList.add('displayNone');
         let body = inputData();
         // this is a way to chain the methods <===== its so annouing in the first but then i found it's so good if you make the functions return data or error
-        postData(body).then(ress => getProjectData()).then(data =>  updateUI(data)).catch(error => console.log(error));
+        postData(body).then(ress => getProjectData()).then(data =>  updateUI(data)).catch(error => console.log(error)).finally(()=>{console.log('update ui complete!')});
     }
 };
 
