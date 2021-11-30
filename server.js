@@ -1,6 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
-const apiKey = '&appid=e31548070754746e47db244d4fd8fd43';
+const apiKey = '&appid=YOUR ID FROM openweathermap.org HERE';
 const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const units = 'imperial';
 
